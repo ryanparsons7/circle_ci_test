@@ -10,13 +10,7 @@ jobs:
       - 1password/install-cli
       - checkout
       - run:
-          shell: op run -- /bin/bash
-          environment:
-              OP_TEST_USERNAME: op://Employee/CircleCITest/username
-              OP_TEST_PASSWORD: op://Employee/CircleCITest/password
-          command: |
-            echo "This value will be masked: $OP_TEST_USERNAME"
-            echo "This value will be masked: $OP_TEST_PASSWORD"
+          shell: echo "This value will be masked: $OP_SERVICE_ACCOUNT_TOKEN"
 
 # Orchestrate our job run sequence
 workflows:
