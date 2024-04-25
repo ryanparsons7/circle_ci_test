@@ -1,0 +1,25 @@
+version: 2.1
+orbs:
+  1password: onepassword/secrets@1.0.0
+# Define the jobs we want to run for this project
+jobs:
+  test:
+    machine:
+        image: ubuntu-2204:current
+    steps:
+      - 1password/install-cli
+      - checkout
+      - run:
+          shell: op run -- /bin/bash
+          environment:
+              OP_TEST_USERNAME: op://Employee/CircleCITest/username
+              OP_TEST_PASSWORD: op://Employee/CircleCITest/password
+          command: |
+            echo "This value will be masked: $OP_TEST_USERNAME"
+            echo "This value will be masked: $OP_TEST_PASSWORD"
+
+# Orchestrate our job run sequence
+workflows:
+  build_and_test:
+    jobs:
+      - test
