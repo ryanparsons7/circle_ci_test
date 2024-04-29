@@ -7,16 +7,23 @@ jobs:
     machine:
         image: ubuntu-2204:current
     steps:
-      - 1password/install-cli
       - checkout
-      - run:
-          shell: op run -- /bin/bash
-          environment:
-              OP_TEST_USERNAME: op://Employee/CircleCITest/username
-              OP_TEST_PASSWORD: op://Employee/CircleCITest/password
+      - 1password/install-cli:
+          version: 2.27.0
+      - 1password/export:
+            var-name: OP_TEST_USERNAME_EXPORT
+            secret-reference: op://Test 3/CircleCITest/username
+      - 1password/export:
+            var-name: OP_TEST_PASSWORD_EXPORT
+            secret-reference: op://Test 3/CircleCITest/password
+      - 1password/exec:
           command: |
             echo "This value will be masked: $OP_TEST_USERNAME"
             echo "This value will be masked: $OP_TEST_PASSWORD"
+      - run:
+          command: |
+            echo "This value will not be masked: $OP_TEST_USERNAME_EXPORT"
+            echo "This value will not be masked: $OP_TEST_PASSWORD_EXPORT"
 
 # Orchestrate our job run sequence
 workflows:
