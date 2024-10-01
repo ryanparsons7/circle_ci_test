@@ -24,7 +24,7 @@ jobs:
       - run:
           command: |
             echo "This value will not be masked: $OP_TEST_USERNAME_EXPORT"
-            echo "This value will not be masked: $OP_TEST_PASSWORD_EXPORT"
+            echo "This value will not be masked: $OP_TES2T_PASSWORD_EXPORT"
 
 # Orchestrate our job run sequence
 workflows:
